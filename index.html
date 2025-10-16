@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Declaração do tipo de documento e idioma -->
+    <meta charset="UTF-8">
+    <!-- Configuração para caracteres especiais e acentuação -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Viewport para responsividade em dispositivos móveis -->
+    <title>Meu Dashboard Pessoal</title>
+    <!-- Título da página que aparece na aba do navegador -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link para o arquivo CSS de estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Importação da fonte Inter do Google Fonts -->
+</head>
+<body>
+    <!-- Cabeçalho principal do dashboard -->
+    <header class="header">
+        <h1>DASHBOARD</h1>
+        <!-- Título principal -->
+        <nav class="nav-menu">
+            <!-- Menu de navegação superior -->
+            <div class="icon-group">
+                <!-- Grupo de ícones no cabeçalho -->
+                <span class="top-icon">⚙️</span>
+                <!-- Ícone de configurações -->
+                <span class="top-icon">📧</span>
+                <!-- Ícone de email -->
+                <span class="top-icon">🔔</span>
+                <!-- Ícone de notificações -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Layout principal que contém sidebar e área de conteúdo -->
+    <main class="main-layout">
+        <!-- Barra lateral (sidebar) com menu de navegação -->
+        <aside class="sidebar">
+            
+            <!-- Cabeçalho da sidebar -->
+            <div class="sidebar-header">
+                <span class="icon">🏠</span>
+                <!-- Ícone da casa -->
+                <span class="text">DASHBOARD</span>
+                <!-- Texto do cabeçalho -->
+            </div>
+            
+            <!-- Lista de itens do menu principal -->
+            <div class="menu-list">
+                <div class="menu-item active-menu-item">
+                    <!-- Item de menu ativo (selecionado) -->
+                    <span class="icon">📈</span>
+                    <!-- Ícone de gráfico -->
+                    <span class="text">CHART</span>
+                    <!-- Texto do item -->
+                </div>
+                <div class="menu-item">
+                    <span class="icon">📱</span>
+                    <!-- Ícone de aplicativos -->
+                    <span class="text">APPS</span>
+                </div>
+                <div class="menu-item">
+                    <span class="icon">💬</span>
+                    <!-- Ícone de fórum -->
+                    <span class="text">FORUM</span>
+                </div>
+                <div class="menu-item">
+                    <span class="icon">✉️</span>
+                    <!-- Ícone de email -->
+                    <span class="text">EMAIL</span>
+                </div>
+                <div class="menu-item">
+                    <span class="icon">⚙️</span>
+                    <!-- Ícone de configurações -->
+                    <span class="text">SETTING</span>
+                </div>
+            </div>
+            
+            <!-- Divisor de seção para projetos -->
+            <div class="section-divider">PROJECTS</div>
+            
+            <!-- Lista de projetos -->
+            <div class="projects-list">
+                <div class="project-item">OPTION</div>
+                <!-- Item de projeto -->
+                <div class="project-item">CASE</div>
+                <div class="project-item">LOCAL</div>
+            </div>
+        </aside>
+
+        <!-- Área principal de conteúdo -->
+        <section class="content-area">
+            <!-- Cabeçalho com breadcrumb/navegação -->
+            <div class="content-header-title">DASHBOARD / HOME</div>
+
+            <!-- Primeira linha de widgets -->
+            <div class="widget-row first-row-widgets">
+                
+                <!-- Widget de gráfico de rosca (donut chart) -->
+                <div class="widget donut-chart-widget">
+                    <div class="donut-chart-container">
+                        <img src="media/donut_1.png" alt="Gráfico de progresso 64%" class="chart-image">
+                        <!-- Imagem do gráfico de rosca -->
+                    </div>
+                    <div class="widget-bottom-content">
+                        <h4 class="data-title">PROJETOS ATIVOS</h4>
+                        <!-- Título dos dados -->
+                        <p class="data-description">Foco na conclusão de tarefas prioritárias e gestão de tempo em novos desenvolvimentos. Verifique o backlog.</p>
+                        <!-- Descrição dos dados -->
+                    </div>
+                </div>
+
+                <!-- Segundo widget de gráfico de rosca -->
+                <div class="widget donut-chart-widget">
+                    <div class="donut-chart-container">
+                        <img src="media/donut_2.png" alt="Gráfico de progresso 80%" class="chart-image">
+                    </div>
+                    <div class="widget-bottom-content">
+                        <h4 class="data-title">CONFORMIDADE (SLA)</h4>
+                        <p class="data-description">Avaliação do cumprimento do Acordo de Nível de Serviço. Alta performance na resolução de chamados prioritários (Nível 1).</p>
+                    </div>
+                </div>
+
+                <!-- Terceiro widget de gráfico de rosca -->
+                <div class="widget donut-chart-widget">
+                    <div class="donut-chart-container">
+                        <img src="media/donut_3.png" alt="Gráfico de progresso 50%" class="chart-image">
+                    </div>
+                    <div class="widget-bottom-content">
+                        <h4 class="data-title">UTILIZAÇÃO DE RECURSOS</h4>
+                        <p class="data-description">Uso atual de memória e CPU do servidor de produção. Necessária otimização do script de processamento noturno.</p>
+                    </div>
+                </div>
+
+                <!-- Widget de texto grande com métricas -->
+                <div class="widget large-text-widget">
+                    <h3 class="widget-title-secondary">ADOÇÃO DO FRONT-END</h3>
+                    <span class="widget-subtitle">Métrica principal do último sprint</span>
+                    <!-- Subtítulo -->
+                    <p class="main-percentage">64%</p>
+                    <!-- Valor percentual principal -->
+                    <p class="widget-paragraph">Adoção da nova biblioteca de componentes UI. A meta de 90% não foi atingida, necessitando de treinamento adicional para a equipe de integração.</p>
+                    <p class="widget-paragraph">O prazo de implementação do recurso de login social foi postergado em 3 dias devido a dependências externas no backend. O impacto no cronograma é mínimo.</p>
+                </div>
+
+                <!-- Widget de barras de progresso -->
+                <div class="widget progress-bars-widget">
+                    <h3 class="widget-title-secondary">PROGRESSO DE TAREFAS</h3>
+                    <span class="widget-subtitle">Andamento por categoria de projeto</span>
+
+                    <!-- Grupo de barras de progresso -->
+                    <div class="progress-bar-group">
+                        <span class="bar-label">Desenvolvimento de Funcionalidades</span>
+                        <!-- Rótulo da barra -->
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-1" style="width: 85%;"></div>
+                            <!-- Barra de progresso com largura definida -->
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar-group">
+                        <span class="bar-label">Correções de Bugs e Debounce</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-2" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar-group">
+                        <span class="bar-label">Otimização de Performance</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-3" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Segunda linha de widgets -->
+            <div class="widget-row second-row-widgets">
+
+                <!-- Widget de gráfico de linhas -->
+                <div class="widget line-chart-widget">
+                    <img src="media/generic_graphic.png" alt="Gráfico de Linhas" class="chart-image full-width-image">
+                    <!-- Gráfico de linhas ocupando toda a largura -->
+                </div>
+
+                <!-- Widget de barras segmentadas -->
+                <div class="widget segmented-bars-widget">
+                    <div class="segmented-bars-column">
+                        <!-- Coluna com as barras segmentadas -->
+                        <div class="segmented-bar-row">
+                            <div class="segmented-bar bar-gradient-1" style="width: 70%;"></div>
+                            <!-- Barra segmentada com gradiente -->
+                        </div>
+                        <div class="segmented-bar-row">
+                            <div class="segmented-bar bar-gradient-2" style="width: 85%;"></div>
+                        </div>
+                        <div class="segmented-bar-row">
+                            <div class="segmented-bar bar-gradient-3" style="width: 50%;"></div>
+                        </div>
+                        <div class="segmented-bar-row">
+                            <div class="segmented-bar bar-gradient-4" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="segmented-text-column">
+                        <!-- Coluna com texto explicativo -->
+                        <h3 class="widget-title-secondary">DISTRIBUIÇÃO REGIONAL</h3>
+                        <span class="widget-subtitle">Usuários ativos por continente (Últimos 30 dias)</span>
+                        <p class="widget-paragraph">A América do Sul e a Europa apresentam as maiores taxas de crescimento de usuários (com 70% e 85% de representação, respectivamente). É crucial manter o foco nesses mercados.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Terceira linha de widgets -->
+            <div class="widget-row third-row-widgets">
+
+                <!-- Widget de atividades/log -->
+                <div class="widget activities-widget">
+                    <h3 class="widget-title-secondary">LOG DE ATIVIDADES</h3>
+                    <span class="widget-subtitle">Eventos críticos e notificações do sistema</span>
+                    
+                    <!-- Seção de atividade -->
+                    <div class="activity-section">
+                        <h4 class="activity-title">ERRO CRÍTICO (DB)</h4>
+                        <!-- Título da atividade -->
+                        <p class="activity-description">Falha na sincronização do banco de dados secundário. A equipe de infraestrutura foi notificada e a correção está em andamento.</p>
+                        <!-- Descrição da atividade -->
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">NOVO DEPLOY (v2.1.0)</h4>
+                        <p class="activity-description">Nova versão do Front-End publicada em ambiente de produção com sucesso. Todos os testes de regressão foram aprovados e a estabilidade está em 99.8%.</p>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">AVISO DE CAPACIDADE</h4>
+                        <p class="activity-description">O servidor de cache atingiu 90% de sua capacidade. Recomendamos aumentar o limite ou otimizar a política de expiração de dados.</p>
+                    </div>
+                </div>
+
+                <!-- Widget de calendário -->
+                <div class="widget calendar-widget">
+                    <div class="calendar-header-nav">
+                        <!-- Navegação do calendário -->
+                        <span class="nav-arrow">◀</span>
+                        <!-- Seta para mês anterior -->
+                        <h4 class="calendar-month">January</h4>
+                        <!-- Mês atual -->
+                        <span class="nav-arrow">▶</span>
+                        <!-- Seta para próximo mês -->
+                    </div>
+                    <div class="calendar-grid">
+                        <!-- Grade do calendário -->
+                        <span class="day-header">S</span>
+                        <!-- Cabeçalho dos dias (domingo) -->
+                        <span class="day-header">M</span>
+                        <span class="day-header">T</span>
+                        <span class="day-header">W</span>
+                        <span class="day-header">T</span>
+                        <span class="day-header">F</span>
+                        <span class="day-header">S</span>
+                        <!-- Dias inativos (fora do mês) -->
+                        <span class="day-number inactive"></span>
+                        <span class="day-number inactive"></span>
+                        <span class="day-number inactive"></span>
+                        <!-- Dias do mês -->
+                        <span class="day-number">1</span>
+                        <span class="day-number">2</span>
+                        <span class="day-number">3</span>
+                        <span class="day-number">4</span>
+                        <span class="day-number">5</span>
+                        <span class="day-number highlight">6</span>
+                        <!-- Dia destacado -->
+                        <span class="day-number">7</span>
+                        <span class="day-number">8</span>
+                        <span class="day-number">9</span>
+                        <span class="day-number">10</span>
+                        <span class="day-number">11</span>
+                        <span class="day-number">12</span>
+                        <span class="day-number highlight">13</span>
+                        <span class="day-number">14</span>
+                        <span class="day-number">15</span>
+                        <span class="day-number">16</span>
+                        <span class="day-number">17</span>
+                        <span class="day-number">18</span>
+                        <span class="day-number">19</span>
+                        <span class="day-number highlight">20</span>
+                        <span class="day-number">21</span>
+                        <span class="day-number">22</span>
+                        <span class="day-number">23</span>
+                        <span class="day-number">24</span>
+                        <span class="day-number">25</span>
+                        <span class="day-number">26</span>
+                        <span class="day-number highlight">27</span>
+                        <span class="day-number">28</span>
+                        <span class="day-number">29</span>
+                        <span class="day-number">30</span>
+                        <span class="day-number">31</span>
+                        <span class="day-number inactive"></span>
+                    </div>
+                </div>
+
+                <!-- Widget de timeline com gráficos de rosca -->
+                <div class="widget timeline-donut-widget">
+                    <div class="timeline-container">
+                        <!-- Container da timeline -->
+                        <div class="timeline-item">
+                            <!-- Item individual da timeline -->
+                            <div class="timeline-chart-wrapper">
+                                <img src="https://placehold.co/80x80/1A0A33/FFD700?text=40%25" alt="Gráfico 40%" class="donut-timeline-image">
+                                <!-- Gráfico de rosca da timeline -->
+                            </div>
+                            <div class="timeline-line"></div>
+                            <!-- Linha conectando os itens -->
+                            <span class="timeline-text">Planejamento<br>Completo</span>
+                            <!-- Texto descritivo -->
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-chart-wrapper">
+                                <img src="https://placehold.co/80x80/1A0A33/ADFF2F?text=75%25" alt="Gráfico 75%" class="donut-timeline-image">
+                            </div>
+                            <div class="timeline-line"></div>
+                            <span class="timeline-text">Progresso<br>Frontend</span>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-chart-wrapper">
+                                <img src="https://placehold.co/80x80/1A0A33/1E90FF?text=20%25" alt="Gráfico 20%" class="donut-timeline-image">
+                            </div>
+                            <div class="timeline-line"></div>
+                            <span class="timeline-text">Integração<br>Backend</span>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-chart-wrapper">
+                                <img src="https://placehold.co/80x80/1A0A33/BA55D3?text=80%25" alt="Gráfico 80%" class="donut-timeline-image">
+                            </div>
+                            <div class="timeline-line"></div>
+                            <span class="timeline-text">Testes<br>QA</span>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-chart-wrapper">
+                                <img src="https://placehold.co/80x80/1A0A33/FF6347?text=60%25" alt="Gráfico 60%" class="donut-timeline-image">
+                            </div>
+                            <div class="timeline-line"></div>
+                            <span class="timeline-text">Preparação<br>Deploy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linha adicional de widgets (parece duplicada no código) -->
+                <div class="widget-row second-row-widgets">
+
+                    <div class="widget line-chart-widget">
+                        <img src="media/generic_graphic.png" alt="Gráfico de Linhas" class="chart-image full-width-image">
+                    </div>
+
+                    <!-- Widget de gráfico de pizza -->
+                    <div class="widget pie-chart-widget">
+                        <h3 class="widget-title-secondary">DISTRIBUIÇÃO DE CLIENTES</h3>
+                        <span class="widget-subtitle">Novas aquisições por segmento de mercado</span>
+                        <div class="pie-chart-container">
+                            <img src="https://placehold.co/150x150/1A0A33/FFF?text=PIE%20CHART" alt="Gráfico de Pizza" class="chart-image pie-chart-image">
+                        </div>
+                        <ul class="pie-legend">
+                            <!-- Legenda do gráfico de pizza -->
+                            <li><span class="legend-color color-segment-1"></span> Startup (45%)</li>
+                            <li><span class="legend-color color-segment-2"></span> Empresa Média (30%)</li>
+                            <li><span class="legend-color color-segment-3"></span> Grande Corporação (25%)</li>
+                        </ul>
+                    </div>
+                    <div class="widget segmented-bars-widget">
+                        <!-- Widget duplicado de barras segmentadas -->
+                        <div class="segmented-bars-column">
+                            <div class="segmented-bar-row"><div class="segmented-bar bar-gradient-1" style="width: 70%;"></div></div>
+                            <div class="segmented-bar-row"><div class="segmented-bar bar-gradient-2" style="width: 85%;"></div></div>
+                            <div class="segmented-bar-row"><div class="segmented-bar bar-gradient-3" style="width: 50%;"></div></div>
+                            <div class="segmented-bar-row"><div class="segmented-bar bar-gradient-4" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="segmented-text-column">
+                            <h3 class="widget-title-secondary">DISTRIBUIÇÃO REGIONAL</h3>
+                            <span class="widget-subtitle">Usuários ativos por continente (Últimos 30 dias)</span>
+                            <p class="widget-paragraph">
+                                América do Sul e Europa apresentam maiores taxas de crescimento...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarta linha de widgets -->
+                <div class="widget-row fourth-row-widgets">
+                
+                <!-- Widget de KPI (Indicador-chave de performance) -->
+                <div class="widget kpi-widget">
+                    <h3 class="widget-title-secondary">RECEITA TOTAL</h3>
+                    <div class="kpi-value-container">
+                        <span class="kpi-value">R$ 1.250.000</span>
+                        <!-- Valor do KPI -->
+                        <div class="kpi-trend positive">
+                            <!-- Tendência positiva -->
+                            <span class="trend-arrow">▲</span>
+                            <!-- Seta para cima -->
+                            <span class="trend-percentage">7%</span>
+                            <!-- Porcentagem da tendência -->
+                            <span class="trend-period">em relação ao mês anterior</span>
+                            <!-- Período de comparação -->
+                        </div>
+                    </div>
+                    <p class="widget-paragraph">
+                        A receita total do último mês superou as expectativas, impulsionada por campanhas de marketing bem-sucedidas.
+                    </p>
+                </div>
+
+                <!-- Widget de tabela com top produtos -->
+                <div class="widget top-n-table-widget">
+                    <h3 class="widget-title-secondary">PRODUTOS EM DESTAQUE</h3>
+                    <span class="widget-subtitle">Top 5 vendas do mês</span>
+                    <table class="data-table">
+                        <!-- Tabela de dados -->
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <!-- Cabeçalho da coluna -->
+                                <th>Vendas</th>
+                                <th>% Mudança</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Produto A</td>
+                                <td>1.500</td>
+                                <td class="positive">▲ 12%</td>
+                                <!-- Célula com tendência positiva -->
+                            </tr>
+                            <tr>
+                                <td>Produto B</td>
+                                <td>1.200</td>
+                                <td class="positive">▲ 8%</td>
+                            </tr>
+                            <tr>
+                                <td>Produto C</td>
+                                <td>950</td>
+                                <td class="negative">▼ 3%</td>
+                                <!-- Célula com tendência negativa -->
+                            </tr>
+                            <tr>
+                                <td>Produto D</td>
+                                <td>800</td>
+                                <td class="positive">▲ 5%</td>
+                            </tr>
+                            <tr>
+                                <td>Produto E</td>
+                                <td>720</td>
+                                <td class="positive">▲ 10%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="widget-paragraph table-footer-note">Dados atualizados em 15/07/2025.</p>
+                    <!-- Nota de rodapé da tabela -->
+                </div>
+
+        </section>
+    </main>
+
+    <!-- Rodapé da página -->
+    <footer class="footer">
+        <p>&copy; 2025 Dashboard Prático | Versão Final</p>
+        <!-- Informações de copyright e versão -->
+    </footer>
+</body>
+</html>
