@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textoSecundario: style.getPropertyValue('--cor-texto-secundario').trim(),
             fundoSecundario: style.getPropertyValue('--fundo-secundario').trim(),
             verde: '#2ECC71', // Cor do sucesso/positivo
+            vermelho: '#E74C3C', // Cor do negativo/alerta
         };
     }
     
@@ -49,11 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const startColor = colors[0];
         const endColor = colors[1];
         
+        // Converte hex para RGB para cálculo de interpolação
+        const hexToRgb = (hex) => [
+            parseInt(hex.slice(1, 3), 16),
+            parseInt(hex.slice(3, 5), 16),
+            parseInt(hex.slice(5, 7), 16)
+        ];
+
+        const startRgb = hexToRgb(startColor);
+        const endRgb = hexToRgb(endColor);
+        
         const ratio = index / (totalActiveBlocks - 1 || 1); 
         
-        const r = Math.round(parseInt(startColor.slice(1,3), 16) * (1 - ratio) + parseInt(endColor.slice(1,3), 16) * ratio);
-        const g = Math.round(parseInt(startColor.slice(3,5), 16) * (1 - ratio) + parseInt(endColor.slice(3,5), 16) * ratio);
-        const b = Math.round(parseInt(startColor.slice(5,7), 16) * (1 - ratio) + parseInt(endColor.slice(5,7), 16) * ratio);
+        const r = Math.round(startRgb[0] * (1 - ratio) + endRgb[0] * ratio);
+        const g = Math.round(startRgb[1] * (1 - ratio) + endRgb[1] * ratio);
+        const b = Math.round(startRgb[2] * (1 - ratio) + endRgb[2] * ratio);
 
         return `rgb(${r}, ${g}, ${b})`;
     }
@@ -97,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // ====================================================================
-        // GRÁFICO 1: CONSUMO SEMANAL (Line Chart)
+        // GRÁFICO 1: CONSUMO SEMANAL (Line Chart - MONITORAMENTO)
         // ====================================================================
         const dataConsumo = {
             labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'], 
@@ -144,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // ====================================================================
-        // GRÁFICO 2: DISTRIBUIÇÃO DA CARGA (Barras Customizadas com Blocos)
+        // GRÁFICO 2: DISTRIBUIÇÃO DA CARGA (Barras Customizadas - MONITORAMENTO)
         // ====================================================================
         progressData.forEach(item => {
             const progressBarElement = document.getElementById(item.id);
@@ -172,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // ====================================================================
-        // GRÁFICO 3: SUGESTÃO DE EFICIÊNCIA (Donut Chart)
+        // GRÁFICO 3: SUGESTÃO DE EFICIÊNCIA (Donut Chart - MONITORAMENTO)
         // ====================================================================
         const efficiencyValue = 38; 
         const dataDonut = {
@@ -232,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // ====================================================================
-        // GRÁFICO 5: CUSTO HISTÓRICO MENSAL (Line Chart com Target Line)
+        // GRÁFICO 5: CUSTO HISTÓRICO MENSAL (Line Chart com Target Line - CUSTOS E METAS)
         // ====================================================================
         const dataMonthlyCost = {
             labels: ['Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out'], 
@@ -291,6 +302,70 @@ document.addEventListener('DOMContentLoaded', function() {
                 options: optionsMonthlyCost
             });
         }
+        
+        // ====================================================================
+        // GRÁFICO 6: DESEMPENHO DOS DISPOSITIVOS (Radar Chart - EFICIÊNCIA)
+        // ====================================================================
+        
+        const dataRadar = {
+            labels: ['Cozinha', 'Sala de Estar', 'Climatização', 'Iluminação', 'Standby'],
+            datasets: [{
+                label: 'Desempenho Atual',
+                data: [75, 80, 65, 90, 55], // 100 é o ideal, 0 é o pior
+                backgroundColor: colors.primary + '33', // Cor primária suave
+                borderColor: colors.primary,
+                pointBackgroundColor: colors.primary,
+                pointBorderColor: colors.fundoSecundario,
+                pointHoverBackgroundColor: colors.textoPrincipal,
+                pointHoverBorderColor: colors.primary
+            }, {
+                label: 'Meta Ideal',
+                data: [90, 90, 85, 95, 80],
+                backgroundColor: colors.acento + '11', // Cor de acento suave
+                borderColor: colors.acento,
+                pointBackgroundColor: colors.acento,
+                pointBorderColor: colors.fundoSecundario,
+                pointHoverBackgroundColor: colors.textoPrincipal,
+                pointHoverBorderColor: colors.acento
+            }]
+        };
+
+        const optionsRadar = {
+            responsive: true,
+            maintainAspectRatio: false,
+            elements: {
+                line: {
+                    borderWidth: 2
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: colors.textoSecundario + '44' },
+                    grid: { color: colors.textoSecundario + '22' },
+                    pointLabels: { color: colors.textoPrincipal, font: { size: 12 } },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: { 
+                        backdropColor: colors.fundoSecundario,
+                        color: colors.textoSecundario // Cor dos números dos eixos
+                    } 
+                }
+            },
+            plugins: {
+                legend: { 
+                    labels: { color: colors.textoPrincipal }
+                }
+            }
+        };
+
+        const canvasRadar = document.getElementById('devicePerformanceRadar');
+        if (canvasRadar) {
+            charts.devicePerformanceRadar = new Chart(canvasRadar.getContext('2d'), {
+                type: 'radar',
+                data: dataRadar,
+                options: optionsRadar
+            });
+        }
     }
 
 
@@ -313,8 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
         
-        // Chame a função de recriação após a troca de tema
-        // O timeout de 10ms é um pequeno truque para garantir que o CSS aplique o tema
+        // Recria os gráficos para aplicar as novas cores do tema.
         setTimeout(renderCharts, 10);
     }
 
@@ -333,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ====================================================================
-    // CONFIGURAÇÃO DO SCROLLREVEAL (DEPOIS DOS GRÁFICOS)
+    // CONFIGURAÇÃO DO SCROLLREVEAL
     // ====================================================================
     if (typeof ScrollReveal !== 'undefined') {
         const defaultProps = {
@@ -349,9 +423,14 @@ document.addEventListener('DOMContentLoaded', function() {
         ScrollReveal().reveal('.widget-row:nth-child(n+2) .widget', { ...defaultProps, interval: 150, origin: 'bottom' });
     }
 
-    // Renderiza os gráficos na carga inicial (DOMContentLoaded)
-    // Verifica se a página é o monitoramento ou custos e metas antes de renderizar
-    if (document.getElementById('dailyConsumptionChart') || document.getElementById('goalProgressDonut')) {
+    // ====================================================================
+    // INICIALIZAÇÃO CORRIGIDA - CHAMA renderCharts() se qualquer elemento 
+    //                         de visualização estiver na página.
+    // ====================================================================
+    if (document.getElementById('dailyConsumptionChart') || 
+        document.getElementById('goalProgressDonut') ||
+        document.getElementById('devicePerformanceRadar') || 
+        document.getElementById('progress-aquecimento')) {
         renderCharts();
     }
 });

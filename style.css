@@ -238,6 +238,31 @@ body {
     line-height: 1; 
 }
 
+.kpi-value-container {
+    display: flex;
+    align-items: baseline; 
+    margin: 1rem 0;
+    width: 100%; 
+    flex-wrap: wrap;
+    /* ADICIONE A MARGEM ABAIXO DO GRANDE VALOR */
+    margin-bottom: 1.5rem; 
+}
+
+/* NOVO: Ajuste para o bloco que contém a tendência e o texto de comparação */
+.kpi-trend {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    /* ADICIONE MARGEM ABAIXO DA TENDÊNCIA, SEPARANDO-A DO PARÁGRAFO */
+    margin-bottom: 0.5rem; 
+}
+
+/* Garante espaçamento entre o título e o valor principal */
+.kpi-widget .widget-title-secondary {
+    margin-bottom: 1rem;
+}
+
 /* Estilos de KPI Adicionais para Distribuição no CUSTOS E METAS */
 .kpi-main-group {
     display: flex;

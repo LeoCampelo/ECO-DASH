@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-DASH: Eficiência e Otimização</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>ECO-DASH</h1> 
+        </a>
+        <nav class="nav-menu">
+            <div class="icon-group">
+                <span class="top-icon" id="theme-toggle">💡</span> 
+                <a href="monitoramento.html" style="text-decoration: none; color: inherit;">
+                    <span class="top-icon">⚡</span> 
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header" style="text-decoration: none;">
+                <span class="icon">🏠</span>
+                <span class="text" style="color: var(--cor-texto-principal);">ECO-DASH</span>
+            </a>
+            
+            <div class="menu-list">
+                <a href="index.html" class="menu-item">
+                    <span class="icon">👋</span>
+                    <span class="text">INÍCIO</span>
+                </a>
+
+                <a href="monitoramento.html" class="menu-item">
+                    <span class="icon">📈</span>
+                    <span class="text">MONITORAMENTO</span>
+                </a>
+
+                <a href="custos_metas.html" class="menu-item">
+                    <span class="icon">💸</span>
+                    <span class="text">CUSTOS E METAS</span>
+                </a>
+
+                <a href="eficiencia.html" class="menu-item active-menu-item">
+                    <span class="icon">♻️</span>
+                    <span class="text">EFICIÊNCIA</span>
+                </a>
+                
+                <a href="perfil.html" class="menu-item">
+                    <span class="icon">👤</span>
+                    <span class="text">PERFIL</span>
+                </a>
+
+            </div>
+            
+            <div class="section-divider">DISPOSITIVOS</div>
+            
+            <div class="projects-list">
+                <div class="project-item">CASA PRINCIPAL</div>
+                <div class="project-item">AR-CONDICIONADO</div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="content-header-title">SUGESTÕES E MELHORIAS DE EFICIÊNCIA</div>
+
+            <div class="widget-row first-row-widgets">
+                
+                <div class="widget kpi-widget" style="grid-column: span 4;">
+                    <h3 class="widget-title-secondary">ÍNDICE DE OTIMIZAÇÃO</h3>
+                    <div class="kpi-value-container">
+                        <span class="kpi-value">85/100</span>
+                        <div class="kpi-trend positive">
+                            <span class="trend-arrow">▲</span>
+                            <span class="trend-percentage">3 pts</span>
+                            <span class="trend-period">vs. Mês Passado</span>
+                        </div>
+                    </div>
+                    <p class="widget-paragraph">Sua casa está operando com alta eficiência. Continue seguindo as dicas para atingir 100%.</p>
+                </div>
+
+                <div class="widget" style="grid-column: span 8;">
+                    <h3 class="widget-title-secondary">DESEMPENHO DOS DISPOSITIVOS</h3>
+                    <span class="widget-subtitle">Comparativo de performance em relação ao esperado.</span>
+                    <div class="chart-wrapper">
+                        <canvas id="devicePerformanceRadar"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="widget-row">
+                
+                <div class="widget top-n-table-widget" style="grid-column: span 12;">
+                    <h3 class="widget-title-secondary">DICAS DE ECONOMIA PERSONALIZADAS</h3>
+                    <span class="widget-subtitle">Otimizações sugeridas com maior impacto financeiro e ambiental.</span>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Prioridade</th>
+                                <th>Sugestão</th>
+                                <th>Economia Est. (R$/Mês)</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b style="color:#E74C3C;">Alta</b></td> 
+                                <td>Substituir lâmpadas halógenas da área de serviço por LED.</td>
+                                <td class="positive">R$ 15,00</td> 
+                                <td>Aguardando</td> 
+                            </tr>
+                            <tr>
+                                <td><b style="color:#F39C12;">Média</b></td> 
+                                <td>Agendar o uso da máquina de lavar para fora do horário de pico (18h-21h).</td>
+                                <td class="positive">R$ 10,00</td> 
+                                <td>Implementado</td> 
+                            </tr>
+                            <tr>
+                                <td><b style="color:#2ECC71;">Baixa</b></td> 
+                                <td>Aumentar a temperatura do Ar-Condicionado (Quarto) para 24°C.</td>
+                                <td class="positive">R$ 5,00</td> 
+                                <td>Implementado</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="widget-paragraph table-footer-note">Dicas calculadas com base nos dados de consumo da última semana.</p>
+                </div>
+
+            </div>
+            
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 ECO-DASH | Plataforma de Gestão de Energia</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>
