@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-DASH: Perfil e Configurações</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>ECO-DASH</h1> 
+        </a>
+        <nav class="nav-menu">
+            <div class="icon-group">
+                <span class="top-icon" id="theme-toggle">💡</span> 
+                <a href="monitoramento.html" style="text-decoration: none; color: inherit;">
+                    <span class="top-icon">⚡</span> 
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header" style="text-decoration: none;">
+                <span class="icon">🏠</span>
+                <span class="text" style="color: var(--cor-texto-principal);">ECO-DASH</span>
+            </a>
+            
+            <div class="menu-list">
+                <a href="index.html" class="menu-item">
+                    <span class="icon">👋</span>
+                    <span class="text">INÍCIO</span>
+                </a>
+
+                <a href="monitoramento.html" class="menu-item">
+                    <span class="icon">📈</span>
+                    <span class="text">MONITORAMENTO</span>
+                </a>
+
+                <a href="custos_metas.html" class="menu-item">
+                    <span class="icon">💸</span>
+                    <span class="text">CUSTOS E METAS</span>
+                </a>
+
+                <a href="eficiencia.html" class="menu-item">
+                    <span class="icon">♻️</span>
+                    <span class="text">EFICIÊNCIA</span>
+                </a>
+                
+                <a href="perfil.html" class="menu-item active-menu-item">
+                    <span class="icon">👤</span>
+                    <span class="text">PERFIL</span>
+                </a>
+
+            </div>
+            
+            <div class="section-divider">DISPOSITIVOS</div>
+            
+            <div class="projects-list">
+                <div class="project-item">CASA PRINCIPAL</div>
+                <div class="project-item">AR-CONDICIONADO</div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="content-header-title">CONFIGURAÇÕES DE USUÁRIO E INTEGRAÇÃO</div>
+
+            <div class="widget-row first-row-widgets">
+                
+                <div class="widget" style="grid-column: span 6;">
+                    <h3 class="widget-title-secondary">SEU NÍVEL ECO-DASH</h3>
+                    <span class="widget-subtitle">Progresso em direção ao próximo nível e pontuação total.</span>
+                    
+                    <div class="gamification-summary" style="text-align: center; margin: 1.5rem 0;">
+                        <p class="main-percentage" style="font-size: 3rem;">Nível 3</p>
+                        <p class="data-description" style="color: var(--cor-acento);">ECO-HERÓI JÚNIOR</p>
+                        <div class="progress-bar-container" style="margin-top: 1rem; width: 80%; margin-left: auto; margin-right: auto;">
+                            <div class="progress-bar bar-xp" style="width: 65%;"></div> 
+                        </div>
+                        <p class="data-description" style="font-size: 0.85rem; margin-top: 0.5rem;">65% para o Nível 4</p>
+                    </div>
+                </div>
+
+                <div class="widget activities-widget" style="grid-column: span 6;">
+                    <h3 class="widget-title-secondary">CONQUISTAS RECENTES</h3>
+                    <span class="widget-subtitle">Badges obtidos através de economia e otimização.</span>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title" style="color: #2ECC71;">SEMANA VERDE 🟢</h4>
+                        <p class="activity-description">Obtido por manter o consumo de pico abaixo da meta por 7 dias consecutivos.</p>
+                    </div>
+                    <div class="activity-section">
+                        <h4 class="activity-title" style="color: var(--cor-primaria);">GUARDIÃO NOTURNO ✨</h4>
+                        <p class="activity-description">Obtido por desligar todos os aparelhos com alto consumo em Standby à noite.</p>
+                    </div>
+                    <div class="activity-section">
+                        <h4 class="activity-title" style="color: var(--cor-acento);">CAÇADOR DE VAMPIROS 🦇</h4>
+                        <p class="activity-description">Obtido por identificar e remover três fontes de consumo fantasma (Standby).</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="widget-row second-row-widgets">
+                
+                <div class="widget" style="grid-column: span 6;">
+                    <h3 class="widget-title-secondary">DETALHES DA CONTA</h3>
+                    <span class="widget-subtitle">Informações de login e dados pessoais.</span>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="userName">Nome do Usuário</label>
+                            <input type="text" id="userName" value="Leo Campelo" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">E-mail</label>
+                            <input type="email" id="userEmail" value="usuario@email.com" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentPassword">Alterar Senha</label>
+                            <button class="primary-action-button" style="width: 100%;">Mudar Senha</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="widget" style="grid-column: span 6;">
+                    <h3 class="widget-title-secondary">METAS PADRÃO</h3>
+                    <span class="widget-subtitle">Defina o comportamento inicial de suas metas de custo.</span>
+                    
+                    <form class="settings-form">
+                         <div class="form-group">
+                            <label for="metaCusto">Meta de Custo Mensal (R$)</label>
+                            <input type="number" id="metaCusto" value="300.00" step="10.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="picoLimite">Limite de Pico Diário (kW)</label>
+                            <input type="number" id="picoLimite" value="5.0" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="taxaEconomia">Taxa de Economia Ideal (%)</label>
+                            <input type="number" id="taxaEconomia" value="10" step="1">
+                        </div>
+                        <button class="primary-action-button">Salvar Configurações</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="widget-row third-row-widgets">
+                
+                <div class="widget" style="grid-column: span 12;">
+                    <h3 class="widget-title-secondary">INTEGRAÇÃO COM A API THINKGSPEAK</h3>
+                    <span class="widget-subtitle">Insira as chaves de acesso para que o ECO-DASH possa ler os dados do seu medidor.</span>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="channelId">ID do Channel (Canal)</label>
+                            <input type="text" id="channelId" placeholder="Ex: 1234567">
+                        </div>
+                        <div class="form-group">
+                            <label for="readKey">Chave de Leitura (Read API Key)</label>
+                            <input type="text" id="readKey" placeholder="Ex: ABCDEFGHIJKLMNOP">
+                        </div>
+                        <div class="form-group">
+                            <label for="writeKey">Chave de Escrita (Write API Key) - Opcional</label>
+                            <input type="text" id="writeKey" placeholder="Para enviar comandos">
+                        </div>
+                        <button class="primary-action-button">Testar e Conectar API</button>
+                    </form>
+                </div>
+
+            </div>
+            
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 ECO-DASH | Plataforma de Gestão de Energia</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>

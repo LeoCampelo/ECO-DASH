@@ -17,12 +17,12 @@
 
 /* ===== Mapeamento do Tema Claro (Light Theme) ===== */
 [data-theme="light"] {
-    --fundo-principal: #F0F4F8;        /* Branco Suave */
-    --fundo-secundario: #FFFFFF;       /* Branco Puro (Widgets/Sidebar) */
-    --cor-primaria: #0077B6;           /* Azul Profundo (Ação/Linha) */
-    --cor-acento: #023E8A;             /* Azul Escuro (Títulos) */
-    --cor-texto-principal: #121212;    /* Texto Principal (Escuro) */
-    --cor-texto-secundario: #555555;   /* Texto Secundário (Cinza Escuro) */
+    --fundo-principal: #F0F4F8;        
+    --fundo-secundario: #FFFFFF;       
+    --cor-primaria: #0077B6;           
+    --cor-acento: #023E8A;             
+    --cor-texto-principal: #121212;    
+    --cor-texto-secundario: #555555;   
     --cor-borda: rgba(0, 0, 0, 0.1);
     --cor-sombra: rgba(0, 0, 0, 0.15);
 }
@@ -215,7 +215,7 @@ body {
     margin-bottom: 1rem; 
 }
 
-/* CORREÇÃO: Regras de Valor e KPI */
+/* Regras de Valor e KPI */
 .main-percentage {
     font-size: 3rem; 
     font-weight: 700; 
@@ -238,32 +238,7 @@ body {
     line-height: 1; 
 }
 
-.kpi-value-container {
-    display: flex;
-    align-items: baseline; 
-    margin: 1rem 0;
-    width: 100%; 
-    flex-wrap: wrap;
-    /* ADICIONE A MARGEM ABAIXO DO GRANDE VALOR */
-    margin-bottom: 1.5rem; 
-}
-
-/* NOVO: Ajuste para o bloco que contém a tendência e o texto de comparação */
-.kpi-trend {
-    display: flex;
-    align-items: center;
-    font-size: 0.95rem;
-    font-weight: 700;
-    /* ADICIONE MARGEM ABAIXO DA TENDÊNCIA, SEPARANDO-A DO PARÁGRAFO */
-    margin-bottom: 0.5rem; 
-}
-
-/* Garante espaçamento entre o título e o valor principal */
-.kpi-widget .widget-title-secondary {
-    margin-bottom: 1rem;
-}
-
-/* Estilos de KPI Adicionais para Distribuição no CUSTOS E METAS */
+/* Estilos de KPI Adicionais (Espaçamento interno) */
 .kpi-main-group {
     display: flex;
     flex-direction: column; 
@@ -277,12 +252,17 @@ body {
     gap: 0.5rem; 
 }
 
+.kpi-trend {
+    /* ADICIONADO: Espaçamento para o conteúdo do KPI */
+    margin-bottom: 0.5rem; 
+}
+
 .kpi-trend.negative {
-    color: #E74C3C; /* Vermelho para aumento de custo */
+    color: #E74C3C; 
 }
 
 .kpi-trend.positive {
-    color: #2ECC71; /* Verde para redução de custo */
+    color: #2ECC71; 
 }
 
 
@@ -321,7 +301,7 @@ body {
     flex-grow: 1; 
     position: relative; 
 }
-#dailyConsumptionChart, #monthlyCostBarChart {
+#dailyConsumptionChart, #monthlyCostBarChart, #devicePerformanceRadar {
     flex-grow: 1; 
     height: 0; 
 }
@@ -403,7 +383,6 @@ body {
     border-radius: 2px; 
 }
 
-
 /* Estilos de Tabela e Log */
 .top-n-table-widget, .activities-widget {
     display: flex;
@@ -461,7 +440,84 @@ body {
     border-top: 1px dashed var(--cor-borda);
 }
 
-/* ===== RESPONSIVIDADE (CSS GRID) ===== */
+/* Estilos para Formulários (Página Perfil) */
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: var(--cor-acento); 
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.settings-form input[type="text"],
+.settings-form input[type="email"],
+.settings-form input[type="number"] {
+    background-color: var(--fundo-principal); 
+    color: var(--cor-texto-principal); 
+    border: 1px solid var(--cor-borda); 
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.settings-form input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2); 
+    outline: none;
+}
+
+.settings-form input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.settings-form .primary-action-button {
+    margin-top: 0.5rem;
+}
+
+/* Estilos para Gamificação (Rank Nikola Tesla) */
+.gamification-summary img {
+    max-width: 90%;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-bar-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 20px;
+    width: 100%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.progress-bar.bar-xp {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #2ECC71, #00B4D8);
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.6);
+    transition: width 0.6s ease-in-out;
+}
+
+
+/* ===== RESPONSIVIDADE (CSS GRID) - Manutenção do layout geral ===== */
 
 @media (min-width: 768px) {
     .main-layout {
@@ -483,7 +539,6 @@ body {
     .widget-row.second-row-widgets .line-chart-widget {
         grid-column: span 12; 
     }
-    /* Linha 3: Tabela e Log/Resumo 50/50 em tablet/desktop pequeno */
     .third-row-widgets .top-n-table-widget, .third-row-widgets .activities-widget {
         grid-column: span 6;
         min-height: 400px; 
@@ -500,7 +555,6 @@ body {
     .widget-row.second-row-widgets .line-chart-widget {
         grid-column: span 12; 
     }
-    /* Linha 3: Tabela 50/50 com Log/Resumo */
     .third-row-widgets .top-n-table-widget {
         grid-column: span 6; 
         min-height: 400px;
@@ -509,7 +563,6 @@ body {
         grid-column: span 6; 
         min-height: 400px;
     }
-    /* Linha 4: Dica 4/12 e Log 8/12 */
     .fourth-row-widgets .large-text-widget {
         grid-column: span 4;
     }
