@@ -67,7 +67,7 @@ body {
 .top-icon {
     margin: 0 0.5rem;
     color: var(--cor-texto-secundario); 
-    cursor: pointer; /* Adicionado cursor pointer para o ícone da lâmpada */
+    cursor: pointer; 
 }
 
 /* Layout principal com Grid (Container pai da Sidebar e Content Area) */
@@ -109,12 +109,12 @@ body {
     align-items: center;
     padding-left: 1.5rem; 
     padding-right: 1.5rem;
-    text-decoration: none; 
-    color: var(--cor-texto-principal); 
+    text-decoration: none;
+    color: var(--cor-texto-principal);
 }
 
 .sidebar-header .text {
-    color: var(--cor-texto-principal); 
+    color: var(--cor-texto-principal);
 }
 
 .menu-list {
@@ -238,6 +238,28 @@ body {
     line-height: 1; 
 }
 
+/* Estilos de KPI Adicionais para Distribuição no CUSTOS E METAS */
+.kpi-main-group {
+    display: flex;
+    flex-direction: column; 
+    gap: 1rem; 
+    margin: 1rem 0 1.5rem 0; 
+}
+
+.kpi-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+}
+
+.kpi-trend.negative {
+    color: #E74C3C; /* Vermelho para aumento de custo */
+}
+
+.kpi-trend.positive {
+    color: #2ECC71; /* Verde para redução de custo */
+}
+
 
 /* Estilos de Botão */
 .primary-action-button {
@@ -274,12 +296,12 @@ body {
     flex-grow: 1; 
     position: relative; 
 }
-#dailyConsumptionChart {
+#dailyConsumptionChart, #monthlyCostBarChart {
     flex-grow: 1; 
     height: 0; 
 }
 
-/* Estilos para o novo Gráfico de Rosca (Chart 3) */
+/* Estilos para o novo Gráfico de Rosca (Chart 3 e Metas) */
 .large-text-widget {
     display: flex; 
     flex-direction: column;
@@ -436,7 +458,8 @@ body {
     .widget-row.second-row-widgets .line-chart-widget {
         grid-column: span 12; 
     }
-    .third-row-widgets .top-n-table-widget, .third-row-widgets .progress-bars-widget {
+    /* Linha 3: Tabela e Log/Resumo 50/50 em tablet/desktop pequeno */
+    .third-row-widgets .top-n-table-widget, .third-row-widgets .activities-widget {
         grid-column: span 6;
         min-height: 400px; 
     }
@@ -452,14 +475,16 @@ body {
     .widget-row.second-row-widgets .line-chart-widget {
         grid-column: span 12; 
     }
+    /* Linha 3: Tabela 50/50 com Log/Resumo */
     .third-row-widgets .top-n-table-widget {
-        grid-column: span 8; 
+        grid-column: span 6; 
         min-height: 400px;
     }
-    .third-row-widgets .progress-bars-widget {
-        grid-column: span 4; 
+    .third-row-widgets .activities-widget {
+        grid-column: span 6; 
         min-height: 400px;
     }
+    /* Linha 4: Dica 4/12 e Log 8/12 */
     .fourth-row-widgets .large-text-widget {
         grid-column: span 4;
     }

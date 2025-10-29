@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-DASH: Custos e Metas</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>ECO-DASH</h1> 
+        </a>
+        <nav class="nav-menu">
+            <div class="icon-group">
+                <span class="top-icon" id="theme-toggle">💡</span> 
+                <a href="monitoramento.html" style="text-decoration: none; color: inherit;">
+                    <span class="top-icon">⚡</span> 
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header" style="text-decoration: none;">
+                <span class="icon">🏠</span>
+                <span class="text" style="color: var(--cor-texto-principal);">ECO-DASH</span>
+            </a>
+            
+            <div class="menu-list">
+                <a href="index.html" class="menu-item">
+                    <span class="icon">👋</span>
+                    <span class="text">INÍCIO</span>
+                </a>
+
+                <a href="monitoramento.html" class="menu-item">
+                    <span class="icon">📈</span>
+                    <span class="text">MONITORAMENTO</span>
+                </a>
+
+                <a href="custos_metas.html" class="menu-item active-menu-item">
+                    <span class="icon">💸</span>
+                    <span class="text">CUSTOS E METAS</span>
+                </a>
+
+                <a href="eficiencia.html" class="menu-item">
+                    <span class="icon">♻️</span>
+                    <span class="text">EFICIÊNCIA</span>
+                </a>
+                
+                <a href="perfil.html" class="menu-item">
+                    <span class="icon">👤</span>
+                    <span class="text">PERFIL</span>
+                </a>
+
+            </div>
+            
+            <div class="section-divider">DISPOSITIVOS</div>
+            
+            <div class="projects-list">
+                <div class="project-item">CASA PRINCIPAL</div>
+                <div class="project-item">AR-CONDICIONADO</div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="content-header-title">GESTÃO DE CUSTOS E METAS DE ECONOMIA</div>
+
+            <div class="widget-row first-row-widgets">
+                
+                <div class="widget kpi-widget">
+                    <h3 class="widget-title-secondary">PROJEÇÃO DE CONTA</h3>
+                    
+                    <div class="kpi-main-group">
+                        <span class="kpi-value">R$ 325,00</span>
+                        
+                        <div class="kpi-details">
+                            <div class="kpi-trend negative">
+                                <span class="trend-arrow">▲</span>
+                                <span class="trend-percentage">8%</span>
+                                <span class="trend-period">acima do mês passado</span>
+                            </div>
+                            <p class="tariff-band" style="color: var(--cor-acento);">Bandeira: VERMELHA</p>
+                        </div>
+                    </div>
+                    
+                    <p class="widget-paragraph">Custo estimado se o padrão de consumo for mantido. Ajuste a meta para evitar surpresas.</p>
+                </div>
+
+                <div class="widget large-text-widget">
+                    <h3 class="widget-title-secondary">PROGRESSO DA META</h3>
+                    <span class="widget-subtitle">Meta: R$ 300,00 | Economia ideal: 10%</span>
+                    
+                    <div class="donut-chart-wrapper">
+                        <canvas id="goalProgressDonut"></canvas>
+                        <span class="donut-center-text">72%</span>
+                    </div>
+
+                    <p class="widget-paragraph">Você atingiu <b>72%</b> da sua meta de economia até o momento. Continue reduzindo o consumo de pico!</p>
+                </div>
+
+            </div>
+
+            <div class="widget-row">
+                <div class="widget line-chart-widget" style="grid-column: span 12;">
+                    <h3 class="widget-title-secondary">CUSTO HISTÓRICO MENSAL (R$)</h3>
+                    <span class="widget-subtitle">Comparação dos últimos 6 meses e meta.</span>
+                    
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyCostBarChart"></canvas> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="widget-row third-row-widgets">
+                
+                <div class="widget top-n-table-widget">
+                    <h3 class="widget-title-secondary">METAS ATIVAS</h3>
+                    <span class="widget-subtitle">Acompanhamento das regras definidas.</span>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Meta</th>
+                                <th>Alvo (R$)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Redução Total</td>
+                                <td>R$ 300,00</td>
+                                <td class="negative">72% Concluída</td> 
+                            </tr>
+                            <tr>
+                                <td>Pico de Uso</td>
+                                <td>&lt; 5.0 kW</td>
+                                <td class="negative">Falha (5.2 kW)</td> 
+                            </tr>
+                            <tr>
+                                <td>Standby</td>
+                                <td>R$ 3,00</td>
+                                <td class="positive">R$ 5,28 (Alerta)</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="widget-paragraph table-footer-note">Metas atualizadas em tempo real. Configure novas metas na página Perfil.</p>
+                </div>
+
+                <div class="widget activities-widget">
+                    <h3 class="widget-title-secondary">RESUMO DE ECONOMIA</h3>
+                    <span class="widget-subtitle">Balanço das suas ações de eficiência.</span>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title" style="color: #2ECC71;">ECONOMIA POTENCIAL ANUAL</h4>
+                        <p class="activity-description" style="font-size: 1.2rem; font-weight: 700;">R$ 480,00</p>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">Ações com Maior Impacto</h4>
+                        <p class="activity-description">Otimização do Ar-Condicionado gerou 60% da economia este mês.</p>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">Próximos Passos</h4>
+                        <p class="activity-description">Focar na troca de eletrodomésticos antigos por modelos mais eficientes (Selo Procel A).</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 ECO-DASH | Plataforma de Gestão de Energia</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>
