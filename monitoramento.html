@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-DASH: Monitoramento em Tempo Real</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>ECO-DASH</h1> 
+        </a>
+        <nav class="nav-menu">
+            <div class="icon-group">
+                <span class="top-icon" id="theme-toggle">💡</span> 
+                <a href="monitoramento.html" style="text-decoration: none; color: inherit;">
+                    <span class="top-icon">⚡</span> 
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header" style="text-decoration: none;">
+                <span class="icon">🏠</span>
+                <span class="text" style="color: var(--cor-texto-claro);">ECO-DASH</span>
+            </a>
+            
+            <div class="menu-list">
+                <a href="index.html" class="menu-item">
+                    <span class="icon">👋</span>
+                    <span class="text">INÍCIO</span>
+                </a>
+
+                <a href="monitoramento.html" class="menu-item active-menu-item">
+                    <span class="icon">📈</span>
+                    <span class="text">MONITORAMENTO</span>
+                </a>
+
+                <a href="custos_metas.html" class="menu-item">
+                    <span class="icon">💸</span>
+                    <span class="text">CUSTOS E METAS</span>
+                </a>
+
+                <a href="eficiencia.html" class="menu-item">
+                    <span class="icon">♻️</span>
+                    <span class="text">EFICIÊNCIA</span>
+                </a>
+                
+                <a href="perfil.html" class="menu-item">
+                    <span class="icon">👤</span>
+                    <span class="text">PERFIL</span>
+                </a>
+
+            </div>
+            
+            <div class="section-divider">DISPOSITIVOS</div>
+            
+            <div class="projects-list">
+                <div class="project-item">CASA PRINCIPAL</div>
+                <div class="project-item">AR-CONDICIONADO</div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="content-header-title">DASHBOARD / ENERGIA</div>
+
+            <div class="widget-row first-row-widgets">
+                
+                <div class="widget kpi-widget">
+                    <h3 class="widget-title-secondary">CONSUMO ATUAL (kWh)</h3>
+                    <div class="kpi-value-container">
+                        <span class="kpi-value">128.5 kWh</span>
+                        <div class="kpi-trend negative">
+                            <span class="trend-arrow">▲</span>
+                            <span class="trend-percentage">9%</span>
+                            <span class="trend-period">vs. Mês Anterior</span>
+                        </div>
+                    </div>
+                    <p class="widget-paragraph">A inteligência da plataforma projeta uma conta de R$ 325,00. Seu consumo está aumentando em horários de ponta.</p>
+                </div>
+
+                <div class="widget kpi-widget">
+                    <h3 class="widget-title-secondary">DESPERDÍCIO EM STANDBY</h3>
+                    <div class="kpi-value-container">
+                        <span class="kpi-value">R$ 5,28</span>
+                        <div class="kpi-trend positive">
+                            <span class="trend-arrow">▼</span>
+                            <span class="trend-percentage">3%</span>
+                            <span class="trend-period">vs. Semana Anterior</span>
+                        </div>
+                    </div>
+                    <p class="widget-paragraph">Custo estimado com aparelhos em modo 'dormir' (standby). Desligar o carregador da TV pode economizar mais.</p>
+                </div>
+
+            </div>
+
+            <div class="widget-row second-row-widgets">
+                <div class="widget line-chart-widget">
+                    
+                    <h3 class="widget-title-secondary">CONSUMO SEMANAL E TENDÊNCIA (KWH)</h3>
+                    <span class="widget-subtitle">Permite identificar picos de uso em horários de maior demanda.</span>
+                    
+                    <div class="chart-wrapper">
+                        <canvas id="dailyConsumptionChart"></canvas> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="widget-row third-row-widgets">
+                
+                <div class="widget top-n-table-widget">
+                    <h3 class="widget-title-secondary">PICO DE USO E CUSTO</h3>
+                    <span class="widget-subtitle">Detalhes dos horários de maior demanda e custo.</span>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Dispositivo</th>
+                                <th>Pico (kW)</th>
+                                <th>Impacto (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>19:30h</td>
+                                <td>Chuveiro Elétrico</td>
+                                <td>5.2 kW</td>
+                                <td class="negative">R$ 1.85</td> 
+                            </tr>
+                            <tr>
+                                <td>18:45h</td>
+                                <td>Forno Elétrico</td>
+                                <td>3.5 kW</td>
+                                <td class="negative">R$ 1.20</td> 
+                            </tr>
+                            <tr>
+                                <td>13:00h</td>
+                                <td>Ar-Condicionado</td>
+                                <td>1.8 kW</td>
+                                <td class="positive">R$ 0.45</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="widget-paragraph table-footer-note">Picos de consumo em Horário de Ponta (18h-21h) são 3x mais caros.</p>
+                </div>
+
+                <div class="widget progress-bars-widget">
+                    <h3 class="widget-title-secondary">DISTRIBUIÇÃO DA CARGA</h3>
+                    <span class="widget-subtitle">Consumo total do mês por categoria de uso.</span>
+
+                    <div class="custom-progress-container">
+                        <div class="progress-item">
+                            <span class="progress-label">Aquecimento (Chuveiro)</span>
+                            <div class="progress-bar" id="progress-aquecimento" data-value="45"></div>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-label">Climatização (AC)</span>
+                            <div class="progress-bar" id="progress-climatizacao" data-value="35"></div>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-label">Eletrodomésticos</span>
+                            <div class="progress-bar" id="progress-eletrodomesticos" data-value="20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-row fourth-row-widgets">
+
+                <div class="widget large-text-widget">
+                    <h3 class="widget-title-secondary">SUGESTÃO DE EFICIÊNCIA</h3>
+                    <span class="widget-subtitle">Baseado no seu padrão de consumo das 18h às 21h.</span>
+                    
+                    <div class="donut-chart-wrapper">
+                        <canvas id="efficiencyDonutChart"></canvas>
+                        <span class="donut-center-text">38%</span>
+                    </div>
+
+                    <p class="widget-paragraph">Você pode reduzir em até 38% o custo do seu Horário de Ponta se optar por tomar banhos antes das 18h ou depois das 21h. Isso representa uma economia de **R$ 25/mês**.</p>
+                </div>
+                
+                <div class="widget activities-widget">
+                    <h3 class="widget-title-secondary">ALERTAS E LOG</h3>
+                    <span class="widget-subtitle">Histórico de eventos importantes do sistema.</span>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">ALERTA: Standby Alto</h4>
+                        <p class="activity-description">O consumo fantasma subiu 15% na última semana. Verifique a TV do quarto.</p>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">META DE ECONOMIA ATINGIDA</h4>
+                        <p class="activity-description">Parabéns! Você atingiu 80% da sua meta de economia mensal. Continue assim.</p>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <h4 class="activity-title">CO2: Redução Média</h4>
+                        <p class="activity-description">Sua pegada de carbono está 20% abaixo da média do seu CEP. Bom trabalho!</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 ECO-DASH | Plataforma de Gestão de Energia</p>
+    </footer>
+</body>
+</html>
