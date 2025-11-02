@@ -161,7 +161,7 @@
                     <h3 class="widget-title-secondary">INTEGRAÇÃO COM A API THINKGSPEAK</h3>
                     <span class="widget-subtitle">Insira as chaves de acesso para que o ECO-DASH possa ler os dados do seu medidor.</span>
                     
-                    <form class="settings-form">
+                    <form class="settings-form" id="api-config-form">
                         <div class="form-group">
                             <label for="channelId">ID do Channel (Canal)</label>
                             <input type="text" id="channelId" placeholder="Ex: 1234567">
@@ -174,7 +174,7 @@
                             <label for="writeKey">Chave de Escrita (Write API Key) - Opcional</label>
                             <input type="text" id="writeKey" placeholder="Para enviar comandos">
                         </div>
-                        <button class="primary-action-button">Testar e Conectar API</button>
+                        <button class="primary-action-button" id="btn-save-api">Testar e Conectar API</button>
                     </form>
                 </div>
 

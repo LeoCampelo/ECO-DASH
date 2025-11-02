@@ -80,31 +80,31 @@
                     <h3 class="widget-title-secondary">PROJEÇÃO DE CONTA</h3>
                     
                     <div class="kpi-main-group">
-                        <span class="kpi-value">R$ 325,00</span>
+                        <span class="kpi-value" id="projecaoConta">R$ 325,00</span>
                         
                         <div class="kpi-details">
-                            <div class="kpi-trend negative">
+                            <div class="kpi-trend negative" id="trendProjecao">
                                 <span class="trend-arrow">▲</span>
                                 <span class="trend-percentage">8%</span>
                                 <span class="trend-period">acima do mês passado</span>
                             </div>
-                            <p class="tariff-band" style="color: var(--cor-acento);">Bandeira: VERMELHA</p>
+                            <p class="tariff-band" id="bandeiraTarifaria" style="color: var(--cor-acento);">Bandeira: VERMELHA</p>
                         </div>
                     </div>
                     
-                    <p class="widget-paragraph">Custo estimado se o padrão de consumo for mantido. Ajuste a meta para evitar surpresas.</p>
+                    <p class="widget-paragraph" id="descricaoProjecao">Custo estimado se o padrão de consumo for mantido. Ajuste a meta para evitar surpresas.</p>
                 </div>
 
                 <div class="widget large-text-widget">
                     <h3 class="widget-title-secondary">PROGRESSO DA META</h3>
-                    <span class="widget-subtitle">Meta: R$ 300,00 | Economia ideal: 10%</span>
+                    <span class="widget-subtitle" id="metaSubtitle">Meta: R$ 300,00 | Economia ideal: 10%</span>
                     
                     <div class="donut-chart-wrapper">
                         <canvas id="goalProgressDonut"></canvas>
-                        <span class="donut-center-text">72%</span>
+                        <span class="donut-center-text" id="progressoMetaTexto">72%</span>
                     </div>
 
-                    <p class="widget-paragraph">Você atingiu <b>72%</b> da sua meta de economia até o momento. Continue reduzindo o consumo de pico!</p>
+                    <p class="widget-paragraph" id="descricaoProgresso">Você atingiu <b>72%</b> da sua meta de economia até o momento. Continue reduzindo o consumo de pico!</p>
                 </div>
 
             </div>
@@ -129,11 +129,11 @@
                         <thead>
                             <tr>
                                 <th>Meta</th>
-                                <th>Alvo (R$)</th>
+                                <th>Alvo</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tabelaMetas">
                             <tr>
                                 <td>Redução Total</td>
                                 <td>R$ 300,00</td>
@@ -160,17 +160,17 @@
                     
                     <div class="activity-section">
                         <h4 class="activity-title" style="color: #2ECC71;">ECONOMIA POTENCIAL ANUAL</h4>
-                        <p class="activity-description" style="font-size: 1.2rem; font-weight: 700;">R$ 480,00</p>
+                        <p class="activity-description" style="font-size: 1.2rem; font-weight: 700;" id="economiaAnual">R$ 480,00</p>
                     </div>
                     
                     <div class="activity-section">
                         <h4 class="activity-title">Ações com Maior Impacto</h4>
-                        <p class="activity-description">Otimização do Ar-Condicionado gerou 60% da economia este mês.</p>
+                        <p class="activity-description" id="acoesImpacto">Otimização do Ar-Condicionado gerou 60% da economia este mês.</p>
                     </div>
                     
                     <div class="activity-section">
                         <h4 class="activity-title">Próximos Passos</h4>
-                        <p class="activity-description">Focar na troca de eletrodomésticos antigos por modelos mais eficientes (Selo Procel A).</p>
+                        <p class="activity-description" id="proximosPassos">Focar na troca de eletrodomésticos antigos por modelos mais eficientes (Selo Procel A).</p>
                     </div>
                 </div>
             </div>
@@ -183,6 +183,390 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // ====================================================================
+        // FUNÇÕES ESPECÍFICAS PARA CUSTOS E METAS
+        // ====================================================================
+
+        /**
+         * Processa dados específicos para a página de Custos e Metas
+         */
+        function processCostsAndGoalsData(feeds) {
+            if (!feeds || feeds.length === 0) {
+                return getCostsFallbackData();
+            }
+
+            try {
+                const last7Feeds = feeds.slice(-7);
+                const ultimoFeed = feeds[feeds.length - 1];
+                
+                // Calcula consumo médio dos últimos 7 dias
+                const consumoMedio = last7Feeds.reduce((sum, feed) => {
+                    const parsed = validateAndParseFeedData(feed);
+                    return sum + (parsed.field3 / 1000);
+                }, 0) / last7Feeds.length;
+
+                // Projeção mensal baseada no consumo médio
+                const consumoMensalProjetado = consumoMedio * 30;
+                const custoProjetado = consumoMensalProjetado * 0.75; // R$ 0.75 por kWh
+
+                // Calcula tendência comparando com feeds anteriores
+                const feedsAnteriores = feeds.slice(-14, -7);
+                const consumoAnterior = feedsAnteriores.length > 0 ? 
+                    feedsAnteriores.reduce((sum, feed) => {
+                        const parsed = validateAndParseFeedData(feed);
+                        return sum + (parsed.field3 / 1000);
+                    }, 0) / feedsAnteriores.length : consumoMedio;
+
+                const variacaoPercentual = ((consumoMedio - consumoAnterior) / consumoAnterior) * 100;
+
+                // Identifica picos para metas
+                const picos = identifyPeaks(feeds);
+                const maiorPico = picos.length > 0 ? Math.max(...picos.map(p => parseFloat(p.potencia))) : 0;
+
+                // Calcula custo standby mensal
+                const standbyMensal = parseFloat(calculateStandbyConsumption(ultimoFeed)) * 24 * 30 * 0.90;
+
+                // Progresso da meta baseado no consumo atual vs meta
+                const metaMensal = 300; // Meta padrão R$ 300
+                const progressoMeta = Math.max(0, Math.min(100, ((metaMensal - custoProjetado) / metaMensal) * 100));
+
+                return {
+                    projecaoConta: custoProjetado.toFixed(2),
+                    variacaoPercentual: variacaoPercentual.toFixed(1),
+                    bandeiraTarifaria: determinarBandeira(custoProjetado),
+                    progressoMeta: progressoMeta,
+                    maiorPico: maiorPico.toFixed(1),
+                    custoStandby: standbyMensal.toFixed(2),
+                    economiaAnual: (custoProjetado * 12 * 0.15).toFixed(2), // 15% de economia potencial
+                    custoHistorico: generateHistoricalCosts(feeds),
+                    acoesImpacto: determinarAcoesImpacto(feeds),
+                    proximosPassos: determinarProximosPassos(feeds)
+                };
+
+            } catch (error) {
+                console.error('Erro ao processar dados de custos:', error);
+                return getCostsFallbackData();
+            }
+        }
+
+        /**
+         * Determina a bandeira tarifária baseada no custo projetado
+         */
+        function determinarBandeira(custo) {
+            if (custo > 350) return 'VERMELHA';
+            if (custo > 280) return 'AMARELA';
+            return 'VERDE';
+        }
+
+        /**
+         * Gera dados históricos de custo baseados nos feeds
+         */
+        function generateHistoricalCosts(feeds) {
+            // Simula dados dos últimos 6 meses baseado nos feeds disponíveis
+            const baseCost = 280;
+            const variacao = feeds.length > 0 ? 
+                (feeds.reduce((sum, feed) => sum + validateAndParseFeedData(feed).field3, 0) / feeds.length / 1000) * 0.75 : 300;
+            
+            return [
+                (baseCost * 0.9).toFixed(0),
+                (baseCost * 1.1).toFixed(0),
+                (variacao * 0.95).toFixed(0),
+                (variacao * 1.05).toFixed(0),
+                (variacao * 1.15).toFixed(0),
+                variacao.toFixed(0)
+            ];
+        }
+
+        /**
+         * Determina ações de impacto baseadas no padrão de consumo
+         */
+        function determinarAcoesImpacto(feeds) {
+            const picos = identifyPeaks(feeds);
+            const picosPonta = picos.filter(p => p.isPonta).length;
+            
+            if (picosPonta > 2) {
+                return "Redução de consumo no horário de ponta (18h-21h) pode gerar 40% da economia.";
+            }
+            
+            const standby = parseFloat(calculateStandbyConsumption(feeds[feeds.length - 1]));
+            if (standby > 0.1) {
+                return "Eliminação de consumo standby representa 35% do potencial de economia.";
+            }
+            
+            return "Otimização do Ar-Condicionado gerou 60% da economia este mês.";
+        }
+
+        /**
+         * Sugere próximos passos baseado na análise
+         */
+        function determinarProximosPassos(feeds) {
+            const ultimoFeed = feeds[feeds.length - 1];
+            const parsed = validateAndParseFeedData(ultimoFeed);
+            
+            if (parsed.field3 > 4000) { // Alto consumo
+                return "Priorize a redução do chuveiro elétrico nos horários de pico.";
+            }
+            
+            if (parseFloat(calculateStandbyConsumption(ultimoFeed)) > 0.08) {
+                return "Foque em eliminar dispositivos em standby durante a noite.";
+            }
+            
+            return "Focar na troca de eletrodomésticos antigos por modelos mais eficientes (Selo Procel A).";
+        }
+
+        /**
+         * Dados de fallback para custos e metas
+         */
+        function getCostsFallbackData() {
+            return {
+                projecaoConta: '325.00',
+                variacaoPercentual: '8.0',
+                bandeiraTarifaria: 'VERMELHA',
+                progressoMeta: 72,
+                maiorPico: '5.2',
+                custoStandby: '5.28',
+                economiaAnual: '480.00',
+                custoHistorico: ['250', '280', '310', '290', '340', '325'],
+                acoesImpacto: 'Otimização do Ar-Condicionado gerou 60% da economia este mês.',
+                proximosPassos: 'Focar na troca de eletrodomésticos antigos por modelos mais eficientes (Selo Procel A).'
+            };
+        }
+
+        /**
+         * Atualiza a interface com dados processados
+         */
+        function updateCostsInterface(data) {
+            // Atualiza projeção de conta
+            const projecaoElement = document.getElementById('projecaoConta');
+            if (projecaoElement) {
+                projecaoElement.textContent = `R$ ${data.projecaoConta}`;
+            }
+
+            // Atualiza tendência
+            const trendElement = document.getElementById('trendProjecao');
+            if (trendElement) {
+                const isPositive = parseFloat(data.variacaoPercentual) > 0;
+                trendElement.className = `kpi-trend ${isPositive ? 'negative' : 'positive'}`;
+                trendElement.innerHTML = `
+                    <span class="trend-arrow">${isPositive ? '▲' : '▼'}</span>
+                    <span class="trend-percentage">${Math.abs(parseFloat(data.variacaoPercentual))}%</span>
+                    <span class="trend-period">${isPositive ? 'acima' : 'abaixo'} do mês passado</span>
+                `;
+            }
+
+            // Atualiza bandeira tarifária
+            const bandeiraElement = document.getElementById('bandeiraTarifaria');
+            if (bandeiraElement) {
+                bandeiraElement.textContent = `Bandeira: ${data.bandeiraTarifaria}`;
+                // Cor baseada na bandeira
+                const cores = {
+                    'VERDE': '#2ECC71',
+                    'AMARELA': '#F39C12', 
+                    'VERMELHA': '#E74C3C'
+                };
+                bandeiraElement.style.color = cores[data.bandeiraTarifaria] || 'var(--cor-acento)';
+            }
+
+            // Atualiza progresso da meta
+            const progressoElement = document.getElementById('progressoMetaTexto');
+            if (progressoElement) {
+                progressoElement.textContent = `${Math.round(data.progressoMeta)}%`;
+            }
+
+            const descricaoProgresso = document.getElementById('descricaoProgresso');
+            if (descricaoProgresso) {
+                descricaoProgresso.innerHTML = `Você atingiu <b>${Math.round(data.progressoMeta)}%</b> da sua meta de economia até o momento. ${data.progressoMeta >= 80 ? 'Excelente trabalho!' : 'Continue reduzindo o consumo de pico!'}`;
+            }
+
+            // Atualiza tabela de metas
+            const tabelaMetas = document.getElementById('tabelaMetas');
+            if (tabelaMetas) {
+                const metaPicoStatus = parseFloat(data.maiorPico) <= 5.0 ? 'positive' : 'negative';
+                const metaPicoTexto = parseFloat(data.maiorPico) <= 5.0 ? 
+                    `Concluída (${data.maiorPico} kW)` : 
+                    `Falha (${data.maiorPico} kW)`;
+
+                const metaStandbyStatus = parseFloat(data.custoStandby) <= 3.0 ? 'positive' : 'negative';
+                const metaStandbyTexto = parseFloat(data.custoStandby) <= 3.0 ? 
+                    `R$ ${data.custoStandby}` : 
+                    `R$ ${data.custoStandby} (Alerta)`;
+
+                tabelaMetas.innerHTML = `
+                    <tr>
+                        <td>Redução Total</td>
+                        <td>R$ 300,00</td>
+                        <td class="${data.progressoMeta >= 70 ? 'positive' : 'negative'}">${Math.round(data.progressoMeta)}% Concluída</td> 
+                    </tr>
+                    <tr>
+                        <td>Pico de Uso</td>
+                        <td>&lt; 5.0 kW</td>
+                        <td class="${metaPicoStatus}">${metaPicoTexto}</td> 
+                    </tr>
+                    <tr>
+                        <td>Standby</td>
+                        <td>R$ 3,00</td>
+                        <td class="${metaStandbyStatus}">${metaStandbyTexto}</td> 
+                    </tr>
+                `;
+            }
+
+            // Atualiza resumo de economia
+            const economiaAnual = document.getElementById('economiaAnual');
+            if (economiaAnual) {
+                economiaAnual.textContent = `R$ ${data.economiaAnual}`;
+            }
+
+            const acoesImpacto = document.getElementById('acoesImpacto');
+            if (acoesImpacto) {
+                acoesImpacto.textContent = data.acoesImpacto;
+            }
+
+            const proximosPassos = document.getElementById('proximosPassos');
+            if (proximosPassos) {
+                proximosPassos.textContent = data.proximosPassos;
+            }
+
+            return data;
+        }
+
+        /**
+         * Renderiza gráficos específicos para custos e metas
+         */
+        function renderCostsCharts(data) {
+            const colors = getThemeColors();
+
+            // Gráfico de progresso da meta (Donut)
+            const ctxDonut = document.getElementById('goalProgressDonut');
+            if (ctxDonut) {
+                if (charts.goalProgressDonut) {
+                    charts.goalProgressDonut.destroy();
+                }
+
+                const dataDonut = {
+                    datasets: [{
+                        data: [data.progressoMeta, 100 - data.progressoMeta],
+                        backgroundColor: [colors.verde, colors.acento + '44'],
+                        borderColor: [colors.verde, 'transparent'],
+                        borderWidth: 1,
+                        cutout: '80%',
+                        borderRadius: 5
+                    }]
+                };
+
+                charts.goalProgressDonut = new Chart(ctxDonut.getContext('2d'), {
+                    type: 'doughnut',
+                    data: dataDonut,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { enabled: false } 
+                        }
+                    }
+                });
+            }
+
+            // Gráfico de custo histórico mensal
+            const ctxBar = document.getElementById('monthlyCostBarChart');
+            if (ctxBar) {
+                if (charts.monthlyCostBarChart) {
+                    charts.monthlyCostBarChart.destroy();
+                }
+
+                const dataBar = {
+                    labels: ['Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out'],
+                    datasets: [{
+                        label: 'Custo Mensal (R$)',
+                        data: data.custoHistorico,
+                        type: 'line',
+                        fill: true,
+                        tension: 0.3,
+                        borderColor: colors.primary,
+                        backgroundColor: colors.primary + '22',
+                        pointRadius: 5,
+                        order: 2
+                    },
+                    {
+                        label: 'Meta (R$ 300)',
+                        data: [300, 300, 300, 300, 300, 300],
+                        type: 'line',
+                        borderColor: colors.acento,
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        order: 1
+                    }]
+                };
+
+                charts.monthlyCostBarChart = new Chart(ctxBar.getContext('2d'), {
+                    type: 'line',
+                    data: dataBar,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { 
+                                    display: true, 
+                                    text: 'Reais (R$)', 
+                                    color: colors.textoSecundario 
+                                },
+                                ticks: { color: colors.textoSecundario },
+                                grid: { color: colors.textoSecundario + '22' }
+                            },
+                            x: {
+                                ticks: { color: colors.textoSecundario },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: { 
+                                labels: { color: colors.textoPrincipal }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        /**
+         * Inicialização específica da página de custos
+         */
+        async function initializeCostsPage() {
+            console.log("💰 Inicializando página de Custos e Metas...");
+            
+            try {
+                const feeds = await fetchThingSpeakData();
+                const costsData = processCostsAndGoalsData(feeds);
+                const updatedData = updateCostsInterface(costsData);
+                renderCostsCharts(updatedData);
+                
+                console.log("✅ Página de Custos e Metas inicializada com sucesso");
+                
+            } catch (error) {
+                console.error("❌ Erro ao inicializar página de custos:", error);
+                
+                // Fallback
+                const fallbackData = getCostsFallbackData();
+                updateCostsInterface(fallbackData);
+                renderCostsCharts(fallbackData);
+            }
+        }
+
+        // Inicializa a página quando carregada
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('goalProgressDonut')) {
+                initializeCostsPage();
+                
+                // Atualiza a cada 30 segundos
+                setInterval(initializeCostsPage, 30000);
+            }
+        });
+
+    </script>
     <script src="script.js"></script> 
 </body>
 </html>
